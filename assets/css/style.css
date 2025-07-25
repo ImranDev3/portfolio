@@ -1,0 +1,466 @@
+/* We are using Montserrat font (closest to Google Sans Bold ) */
+body {
+    font-family: 'Montserrat', sans-serif;
+    /* This ensures that our fixed canvas doesn't cause a horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+/* Style for the background animation canvas */
+#background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Places the canvas behind all other content */
+}
+
+/* Simple fade-in-up animation for sections */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animation properties to all sections */
+section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* This class will be added by JavaScript to trigger the animation */
+.fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === New Hero Section Styles === */
+#home {
+    min-height: calc(100vh - 80px); /* Adjust for header height */
+    padding-top: 80px; /* Push content down below fixed header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    #home {
+        text-align: left;
+    }
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #67e8f9; /* Light cyan */
+    color: #67e8f9;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #06b6d4; /* Darker cyan */
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(6, 182, 212, 0.4);
+}
+
+.profile-image-wrapper {
+    position: relative;
+    width: fit-content;
+    border-radius: 50%;
+    padding: 8px;
+    background: linear-gradient(45deg, #22d3ee, #0891b2);
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+    animation: float 6s ease-in-out infinite;
+}
+
+.profile-image-wrapper img {
+    border: 4px solid #0f172a; /* Dark background color */
+    transition: transform 0.3s ease;
+}
+
+.profile-image-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+/* Floating animation for profile image */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Project Card Styles */
+.project-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(55, 65, 81, 0.3);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    border-color: rgba(34, 211, 238, 0.5);
+    box-shadow: 0 20px 40px rgba(34, 211, 238, 0.1);
+}
+
+.project-card-bg-title {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.05);
+    z-index: 0;
+    white-space: nowrap;
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.project-card:hover .project-card-bg-title {
+    color: rgba(34, 211, 238, 0.1);
+}
+
+.project-card-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* === Glassmorphism Navbar CSS === */
+header {
+    padding: 0.5rem 0;
+    background: rgba(17, 24, 39, 0.6);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+header nav ul li a {
+    position: relative;
+    padding: 10px 15px;
+    font-weight: 600; /* Bold weight for Google Sans Bold effect */
+    color: #cbd5e1;
+    transition: color 0.3s ease;
+    border-radius: 6px;
+}
+
+header nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #22d3ee, #06b6d4);
+    border-radius: 2px;
+    transform: translateX(-50%);
+    transition: width 0.4s ease;
+}
+
+header nav ul li a:hover {
+    color: #ffffff;
+    background: rgba(34, 211, 238, 0.1);
+}
+
+header nav ul li a:hover::after {
+    width: 80%;
+}
+
+header nav ul li a.active {
+    color: #22d3ee;
+    background: rgba(34, 211, 238, 0.1);
+}
+
+header nav ul li a.active::after {
+    width: 80%;
+}
+
+/* === Education Timeline Styles === */
+.timeline-item {
+    position: relative;
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover {
+    transform: translateX(10px);
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -45px; /* Position it on the timeline bar */
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    background-color: #06b6d4; /* Cyan color */
+    border-radius: 50%;
+    border: 2px solid #1f2937; /* Match dark background */
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+    background-color: #22d3ee;
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+}
+
+/* === Skills Section Enhancements === */
+.skill-item {
+    border: 1px solid rgba(55, 65, 81, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.skill-item:hover {
+    border-color: rgba(34, 211, 238, 0.5);
+    background: rgba(34, 211, 238, 0.05);
+}
+
+/* === Scroll to Top Button === */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #22d3ee, #0891b2);
+    color: white;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(34, 211, 238, 0.4);
+}
+
+/* === Custom Scrollbar === */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1f2937;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #22d3ee, #0891b2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #0891b2, #0e7490);
+}
+
+/* === Loading Animation === */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0f172a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loader::after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(34, 211, 238, 0.3);
+    border-top: 3px solid #22d3ee;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* === Reveal Animation === */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === Button Enhancements === */
+.btn-primary {
+    background: linear-gradient(45deg, #22d3ee, #0891b2);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700; /* Bold weight for Google Sans Bold effect */
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(34, 211, 238, 0.3);
+}
+
+/* === Typography Enhancements === */
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    font-weight: 700; /* Bold weight for Google Sans Bold effect */
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, #22d3ee, #0891b2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* === Mobile Responsiveness === */
+@media (max-width: 768px) {
+    .profile-image-wrapper {
+        margin-top: 2rem;
+    }
+    
+    .social-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .timeline-dot {
+        left: -35px;
+    }
+    
+    .timeline-item {
+        padding-left: 1rem;
+    }
+    
+    .skill-item {
+        padding: 1rem;
+    }
+    
+    .project-card-bg-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* === Dark Mode Enhancements === */
+.dark-mode-toggle {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(34, 211, 238, 0.1);
+    border: 2px solid rgba(34, 211, 238, 0.3);
+    color: #22d3ee;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.dark-mode-toggle:hover {
+    background: rgba(34, 211, 238, 0.2);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* === Contact Section Enhancements === */
+#contact {
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.05) 0%, rgba(8, 145, 178, 0.05) 100%);
+    border-radius: 20px;
+    margin: 2rem 0;
+}
+
+/* === Footer Enhancements === */
+footer {
+    border-top: 1px solid rgba(55, 65, 81, 0.3);
+}
+
+footer a:hover {
+    transform: translateY(-3px);
+    color: #22d3ee;
+}
+
+/* === Animation Delays for Staggered Effects === */
+.skill-item:nth-child(1) { animation-delay: 0.1s; }
+.skill-item:nth-child(2) { animation-delay: 0.2s; }
+.skill-item:nth-child(3) { animation-delay: 0.3s; }
+.skill-item:nth-child(4) { animation-delay: 0.4s; }
+.skill-item:nth-child(5) { animation-delay: 0.5s; }
+.skill-item:nth-child(6) { animation-delay: 0.6s; }
+.skill-item:nth-child(7) { animation-delay: 0.7s; }
+
+.project-card:nth-child(1) { animation-delay: 0.1s; }
+.project-card:nth-child(2) { animation-delay: 0.3s; }
+.project-card:nth-child(3) { animation-delay: 0.5s; }
+
+/* === Accessibility Improvements === */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus styles for accessibility */
+a:focus, button:focus {
+    outline: 2px solid #22d3ee;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .social-icon {
+        border-width: 3px;
+    }
+    
+    .timeline-dot {
+        border-width: 3px;
+    }
+}
